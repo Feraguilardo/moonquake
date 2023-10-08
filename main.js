@@ -31,10 +31,10 @@ light.add(sunlight);
 sunlight.position.x -= 50;
 scene.add(light);
 var texMoon = [
-  "./assets/moon/color-balance.jpg",
-  "./assets/moon/heigth.png",
-  "./assets/moon/normal.png",
-  "./assets/moon/impactosFinal.jpg",
+  "./img/moon/color-balance.jpg",
+  "./img/moon/heigth.png",
+  "./img/moon/normal.png",
+  "./img/moon/impactosFinal.jpg",
 ];
 var moon = new Planet(texMoon, 80, 0.1);
 scene.add(moon.obj);
