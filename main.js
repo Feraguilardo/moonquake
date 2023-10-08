@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Planet } from "./Planet.js";
 import { Stars } from "./Stars.js";
 const scene = new THREE.Scene();
@@ -54,12 +54,17 @@ window.onresize = function () {
   camera.updateProjectionMatrix();
 };
 
-var startPoint = new THREE.Vector3(0,0,0); // Punto de inicio de la onda
+var startPoint = new THREE.Vector3(0, 0, 0); // Punto de inicio de la onda
 const duration = 6; // Duración de la onda en segundos
 const speed = 1; // Velocidad de expansión de la onda
 
 var circleGeometry = new THREE.CircleGeometry(0.08, 32);
-var circleMaterial = new THREE.MeshBasicMaterial({ color: 'red', transparent: true, opacity: 0.7,side:THREE.DoubleSide });
+var circleMaterial = new THREE.MeshBasicMaterial({
+  color: "red",
+  transparent: true,
+  opacity: 0.7,
+  side: THREE.DoubleSide,
+});
 var circle = new THREE.Mesh(circleGeometry, circleMaterial);
 scene.add(circle);
 var reloj = new THREE.Clock(true);
@@ -71,11 +76,10 @@ function Update() {
   stars.particles.rotateY(-0.0002);
   light.rotateY(0.005);
   //
-  radius += reloj.getDelta()*14;
-  circle.scale.set(radius,radius,radius);
+  radius += reloj.getDelta() * 14;
+  circle.scale.set(radius, radius, radius);
   circle.translateZ(0.0008);
-  if (radius >= 14)
-  {
+  if (radius >= 14) {
     radius = 0;
     circle.position.copy(startPoint);
   }
@@ -83,8 +87,8 @@ function Update() {
   controls.update();
   renderer.render(scene, camera);
 }
-function showWave(lat,lon){
-  startPoint = getSeism(8.04,lat,lon);
+function showWave(lat, lon) {
+  startPoint = getSeism(8.04, lat, lon);
   radius = 0;
   circle.position.copy(startPoint);
   circle.lookAt(moon.obj.position);
@@ -93,9 +97,9 @@ window.addEventListener(
   "message",
   (event) => {
     console.log(event.data);
-    showWave(parseFloat(event.data[0]),parseFloat(event.data[1]));
+    showWave(parseFloat(event.data[0]), parseFloat(event.data[1]));
   },
-  false,
+  false
 );
 function getSeism(radius, lat, lon) {
   var phi = (90 - lat) * (Math.PI / 180);
